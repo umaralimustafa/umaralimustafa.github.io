@@ -1,7 +1,7 @@
 {
   "name": "bcawordle",
   "version": "1.0.0",
-  "description": "Wordle with BCA staff names using discord.py",
+  "description": "Wordle with BCA teacher names using HTML/CSS/Javascript",
   "main": "staff.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

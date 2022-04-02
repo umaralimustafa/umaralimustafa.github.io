@@ -1,2 +1,2 @@
 # BCAWordle
-Wordle with BCA staff names using discord.py
+Wordle with BCA teacher names using HTML/CSS/Javascript
