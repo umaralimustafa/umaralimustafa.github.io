@@ -27,7 +27,7 @@ class Staff {
 
 }
 
-var stafflist = []
+export var stafflist = []
 
 stafflist.push(new Staff("Bajwa", "Dr.", "biology", 1))
 stafflist.push(new Staff("Kennedy", "Mrs.", "biology", 1))
@@ -143,4 +143,9 @@ stafflist.push(new Staff("Tolmo", "Profe", "language", 2))
 stafflist.push(new Staff("Villarosa", "Madame", "language", 2))
 stafflist.push(new Staff("Xu", "Mrs.", "language", 2))
 
-console.log(stafflist[0].getName())
+export default stafflist
+
+// console.log(stafflist[43].getName())
+// console.log(staffnames[43])
+// console.log(stafflist.length)
+// console.log(staffnames.length)

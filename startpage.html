@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>BCA Wordle</h2>
+
+<input type="text" class="namesubmit" id="namesubmit" name="namesubmit" placeholder="Guess a staff..."></input>
+<button id="submit" name="submit">Submit</button>
+
+<br>
+
+<table>
+    <tr>
+      <th>Name</th>
+      <th> </th>
+      <th>Title</th>
+      <th>Department</th>
+      <th>Floor</th>
+    </tr>
+</table>
+
+<script type="module">
+    import stafflist from './stafflists.js'
+    console.log(stafflist[50])
+
+    var staffnames = []
+    for (let i = 0; i < stafflist.length; i++) {
+        staffnames.push(stafflist[i].getName())
+    }
+
+    console.log(staffnames[50])
+
+    var b = document.getElementById("submit")
+    b.addEventListener("click", getuserinput)
+
+    var userinput = ""
+    function getuserinput() {
+        userinput = document.getElementById("namesubmit").value
+        console.log(userinput)
+    }
+
+    // var userinput = new FormData(form[0])
+    // console.log(userinput.get("namesubmit"))
+
+    // function submit() {
+    //     var userinput = document.getElementById("namesubmit").value
+    //     alert(userinput)
+    // }
+
+</script>
+
+</body>
+</html>
