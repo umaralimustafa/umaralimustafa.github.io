@@ -1,4 +1,4 @@
-from staff import Staff
+from python.staff import Staff
 
 stafflist = []
 

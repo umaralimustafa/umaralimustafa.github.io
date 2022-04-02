@@ -1,0 +1,19 @@
+{
+  "name": "bcawordle",
+  "version": "1.0.0",
+  "description": "Wordle with BCA staff names using discord.py",
+  "main": "staff.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/firstnamem/BCAWordle.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/firstnamem/BCAWordle/issues"
+  },
+  "homepage": "https://github.com/firstnamem/BCAWordle#readme"
+}
