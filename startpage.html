@@ -2,41 +2,139 @@
 <html>
 <body>
 
-<h2>BCA Wordle</h2>
+<h2>BCA Wordle (kinda)</h2>
 
-<input type="text" class="namesubmit" id="namesubmit" name="namesubmit" placeholder="Guess a staff..."></input>
+<input type="text" class="namesubmit" id="namesubmit" name="namesubmit" placeholder="Guess a staff..." autocomplete="off"></input>
 <button id="submit" name="submit">Submit</button>
 
-<br>
+<br><br>
 
-<table>
+<table id="submittable">
     <tr>
-      <th>Name</th>
-      <th> </th>
-      <th>Title</th>
-      <th>Department</th>
-      <th>Floor</th>
+      <th class="left">Name</th>
+      <th class="mid"> </th>
+      <th class="mid">Title</th>
+      <th class="mid">Department</th>
+      <th class="mid">Floor</th>
     </tr>
 </table>
 
+<style type="text/css">
+    th {
+        padding: 0 15px;
+    }
+    .mid {
+        text-align: center;
+    }
+    .left {
+        padding: 0 15px 0 0;
+        text-align: left;
+    }
+</style>
+
 <script type="module">
     import stafflist from './stafflists.js'
-    console.log(stafflist[50])
+    // console.log(stafflist[50])
+    var target = stafflist[Math.floor(Math.random() * stafflist.length)]
+    console.log(target)
+    var gamedone = false
 
     var staffnames = []
     for (let i = 0; i < stafflist.length; i++) {
-        staffnames.push(stafflist[i].getName())
+        staffnames.push(stafflist[i].getName().toLowerCase())
     }
 
-    console.log(staffnames[50])
+    // console.log(staffnames[50])
+
+    var rows = 1
 
     var b = document.getElementById("submit")
     b.addEventListener("click", getuserinput)
 
+    var table = document.getElementById("submittable")
+
     var userinput = ""
     function getuserinput() {
         userinput = document.getElementById("namesubmit").value
-        console.log(userinput)
+        // console.log(userinput)
+        // console.log(staffnames.indexOf(userinput.toLowerCase()))
+
+        if (staffnames.indexOf(userinput.toLowerCase()) != -1) {
+
+            if (!gamedone) {
+                var staffer = stafflist[staffnames.indexOf(userinput.toLowerCase())]
+                var row = table.insertRow(rows)
+
+                var cell0 = row.insertCell(0)
+                cell0.style.textAlign = "left"
+                cell0.innerHTML = staffer.getName()
+                if (staffer.getName() === target.getName()) {
+                    cell0.style.backgroundColor = 'green'
+                    gamedone = true
+                }
+                var cell1 = row.insertCell(1)
+                cell1.style.textAlign = "center"
+                if (staffer.getName() > target.getName()) {
+                    cell1.innerHTML = "\u2191"
+                }
+                else if (staffer.getName() < target.getName()) {
+                    cell1.innerHTML = "\u2193"
+                }
+                else {
+                    cell1.innerHTML = "\u2713"
+                    cell1.style.backgroundColor = 'green'
+                }
+                var cell2 = row.insertCell(2)
+                cell2.style.textAlign = "center"
+                cell2.innerHTML = staffer.getTitle()
+                if (staffer.getTitle() === target.getTitle()) {
+                    cell2.style.backgroundColor = 'green'
+                }
+                var cell3 = row.insertCell(3)
+                cell3.style.textAlign = "center"
+                cell3.innerHTML = staffer.getDept()
+                if (staffer.getDept() === target.getDept()) {
+                    cell3.style.backgroundColor = 'green'
+                }
+                var cell4 = row.insertCell(4)
+                cell4.style.textAlign = "center"
+                cell4.innerHTML = staffer.getFloor()
+                if (staffer.getFloor() == target.getFloor()) {
+                    cell4.style.backgroundColor = 'green'
+                }
+                rows++
+            }
+            
+
+            // var staffer = stafflist[staffnames.indexOf(userinput.toLowerCase())]
+            // var row = table.insertRow(rows)
+
+            // var cell0 = row.insertCell(0)
+            // cell0.innerHTML = staffer.getName()
+            // if (staffer.getName() === target.getName()) {
+            //     cell0.style.backgroundColor = 'green'
+            //     gamedone = true
+            // }
+            // var cell1 = row.insertCell(1)
+            // cell1.innerHTML = "higher"
+            // var cell2 = row.insertCell(2)
+            // cell2.innerHTML = staffer.getTitle()
+            // if (staffer.getTitle() === target.getTitle()) {
+            //     cell2.style.backgroundColor = 'green'
+            // }
+            // var cell3 = row.insertCell(3)
+            // cell3.innerHTML = staffer.getDept()
+            // if (staffer.getDept() === target.getDept()) {
+            //     cell3.style.backgroundColor = 'green'
+            // }
+            // var cell4 = row.insertCell(4)
+            // cell4.innerHTML = staffer.getFloor()
+            // if (staffer.getFloor() == target.getFloor()) {
+            //     cell4.style.backgroundColor = 'green'
+            // }
+            // rows++
+        }
+
     }
 
     // var userinput = new FormData(form[0])
