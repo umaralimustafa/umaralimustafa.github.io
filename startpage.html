@@ -132,6 +132,29 @@
                     var answer = document.getElementById("tellanswer")
                     answer.innerHTML = "The correct answer is " + target.getName() + "."
                 }
+                if (gamedone || correctanswer) {
+                    // reset table as well
+
+                    var reset = document.createElement("button")
+                    reset.innerHTML = "Play Again"
+                    reset.type = "submit"
+                    document.body.appendChild(reset)
+                    reset.onclick = function () {
+                        for (--rows; rows >= 1; rows--) {
+                            table.deleteRow(rows)
+                            console.log(rows)
+                        }
+                        rows++
+
+                        target = stafflist[Math.floor(Math.random() * stafflist.length)]
+                        console.log(target)
+                        gamedone = false
+                        correctanswer = false
+
+                        reset.remove()
+                        answer.innerHTML = ""
+                    }
+                }
             }
             
 
