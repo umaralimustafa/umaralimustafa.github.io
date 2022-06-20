@@ -11,7 +11,7 @@
 
 <br>
 
-<input type="text" class="namesubmit" id="namesubmit" name="namesubmit" placeholder="Guess a staff..." autocomplete="off"></input>
+<input type="text" class="namesubmit" id="namesubmit" name="namesubmit" placeholder="Guess a teacher..." autocomplete="off"></input>
 <button id="submit" name="submit">Guess</button>
 
 <br><br>
@@ -166,7 +166,8 @@
                     }
                 }
             }
-            
+
+            document.getElementById("namesubmit").value = ""
 
             // var staffer = stafflist[staffnames.indexOf(userinput.toLowerCase())]
             // var row = table.insertRow(rows)
