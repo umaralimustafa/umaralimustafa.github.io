@@ -290,11 +290,11 @@
             // localStorage.setItem("teachers", JSON.stringify(teachers))
             // document.getElementById("namesubmit").value = ""
             // console.log(JSON.parse(localStorage.getItem("teachers")))
-                
+            
+            var answer = document.getElementById("tellanswer")
             if (rows == 7 && !correctanswer) {
                 gamedone = true
                 localStorage.setItem("gamedone", "true")
-                var answer = document.getElementById("tellanswer")
                 answer.innerHTML = "The correct answer is " + target.getName() + "."
             }
             
