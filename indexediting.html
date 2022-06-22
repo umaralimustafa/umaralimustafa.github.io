@@ -70,8 +70,9 @@
     }
     localStorage.setItem("target", JSON.stringify(target))
     console.log(target)
-    var gamedone = false
-    var correctanswer = false
+
+    var gamedone = (localStorage.getItem("gamedone") === "true")
+    var correctanswer = (localStorage.getItem("correctanswer") === "true")
 
     // console.log(staffnames[50])
 
@@ -120,6 +121,7 @@
                 if (staffer.getName() === target.getName()) {
                     cell0.style.backgroundColor = 'green'
                     correctanswer = true
+                    localStorage.setItem("correctanswer", "true")
                 }
                 
                 var cell1 = row.insertCell(1)
@@ -165,6 +167,7 @@
                 var answer = document.getElementById("tellanswer")
                 if (rows == 7 && !correctanswer) {
                     gamedone = true
+                    localStorage.setItem("gamedone", "true")
                     answer.innerHTML = "The correct answer is " + target.getName() + "."
                 }
                 
@@ -186,7 +189,9 @@
                         localStorage.setItem("target", JSON.stringify(target))
                         console.log(target)
                         gamedone = false
+                        localStorage.setItem("gamedone", "false")
                         correctanswer = false
+                        localStorage.setItem("correctanswer", "false")
                         teachers = []
                         localStorage.setItem("teachers", JSON.stringify(teachers))
                         console.log(teachers)
@@ -241,6 +246,7 @@
                 if (staffer.getName() === target.getName()) {
                     cell0.style.backgroundColor = 'green'
                     correctanswer = true
+                    localStorage.setItem("correctanswer", "true")
                 }
                 
                 var cell1 = row.insertCell(1)
@@ -285,6 +291,7 @@
                 
                 if (rows == 7 && !correctanswer) {
                     gamedone = true
+                    localStorage.setItem("gamedone", "true")
                     var answer = document.getElementById("tellanswer")
                     answer.innerHTML = "The correct answer is " + target.getName() + "."
                 }
@@ -307,8 +314,11 @@
                         localStorage.setItem("target", JSON.stringify(target))
                         console.log(target)
                         gamedone = false
+                        localStorage.setItem("gamedone", "false")
                         correctanswer = false
+                        localStorage.setItem("correctanswer", "false")
                         teachers = []
+                        localStorage.setItem(teachers, JSON.stringify(teachers))
 
                         reset.remove()
                         answer.innerHTML = ""
