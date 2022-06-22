@@ -68,6 +68,7 @@
     else {
         target = stafflist[staffnames.indexOf(target["name"].toLowerCase())]
     }
+    localStorage.setItem("target", JSON.stringify(target))
     console.log(target)
     var gamedone = false
     var correctanswer = false
