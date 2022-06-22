@@ -111,7 +111,7 @@
 
         if (staffnames.indexOf(userinput.toLowerCase()) != -1) {
 
-            if (!(gamedone || correctanswer)) {
+            if (!(localStorage.getItem("gamedone") === "true" || localStorage.getItem("correct") === "true")) {
                 var staffer = stafflist[staffnames.indexOf(userinput.toLowerCase())]
                 var row = table.insertRow(rows)
 
@@ -165,13 +165,13 @@
                 // console.log(JSON.parse(localStorage.getItem("teachers")))
                 
                 var answer = document.getElementById("tellanswer")
-                if (rows == 7 && !correctanswer) {
+                if (rows == 7 && !localStorage.getItem("correctanswer") === "true") {
                     gamedone = true
                     localStorage.setItem("gamedone", "true")
                     answer.innerHTML = "The correct answer is " + target.getName() + "."
                 }
                 
-                if (gamedone || correctanswer) {
+                if (localStorage.getItem("gamedone") === "true" || localStorage.getItem("correctanswer") === "true") {
                     // reset table as well
 
                     var reset = document.createElement("button")
@@ -236,7 +236,7 @@
     function fillrows() {
         for (var i = 0; i < teachers.length; i++) {
             
-            if (!(gamedone || correctanswer)) {
+            if (!(localStorage.getItem("gamedone") === "true" || localStorage.getItem("correct") === "true")) {
                 var staffer = stafflist[staffnames.indexOf(teachers[i]["name"].toLowerCase())]
                 var row = table.insertRow(i + 1)
 
@@ -289,14 +289,14 @@
                 // document.getElementById("namesubmit").value = ""
                 // console.log(JSON.parse(localStorage.getItem("teachers")))
                 
-                if (rows == 7 && !correctanswer) {
+                if (rows == 7 && !localStorage.getItem("correctanswer") === "true") {
                     gamedone = true
                     localStorage.setItem("gamedone", "true")
                     var answer = document.getElementById("tellanswer")
                     answer.innerHTML = "The correct answer is " + target.getName() + "."
                 }
                 
-                if (gamedone || correctanswer) {
+                if (localStorage.getItem("gamedone") === "true" || localStorage.getItem("correctanswer") === "true") {
                     // reset table as well
 
                     var reset = document.createElement("button")
