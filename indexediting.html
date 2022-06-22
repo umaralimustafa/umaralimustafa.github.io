@@ -52,22 +52,35 @@
 </style>
 
 <script type="module">
+    var table = document.getElementById("submittable")
     import stafflist from './stafflists.js'
     // console.log(stafflist[50])
-    var target = stafflist[Math.floor(Math.random() * stafflist.length)]
-    // console.log(target)
-    var gamedone = false
-    var correctanswer = false
-
     var staffnames = []
-    for (let i = 0; i < stafflist.length; i++) {
+    for (var i = 0; i < stafflist.length; i++) {
         staffnames.push(stafflist[i].getName().toLowerCase())
     }
 
+    var target = JSON.parse(localStorage.getItem("target"))
+    if (target === null) {
+        console.log("null")
+        target = stafflist[Math.floor(Math.random() * stafflist.length)]
+    }
+    else {
+        target = stafflist[staffnames.indexOf(target["name"].toLowerCase())]
+    }
+    console.log(target)
+    var gamedone = false
+    var correctanswer = false
+
     // console.log(staffnames[50])
 
-    var rows = 1
-    // var teachers = [] // list of teachers inputted
+    var teachers = JSON.parse(localStorage.getItem("teachers")) // list of teachers inputted
+    if (teachers === null) {
+        teachers = []
+    }
+    console.log(teachers)
+    fillrows()
+    var rows = teachers.length + 1
 
     var b = document.getElementById("submit")
     b.addEventListener("click", getuserinput)
@@ -86,7 +99,7 @@
     //     }
     // })
 
-    var table = document.getElementById("submittable")
+
 
     var userinput = ""
     function getuserinput() {
@@ -143,14 +156,14 @@
                 }
                 // create new row object holding all info
                 rows++
-                // teachers.push(staffer)
-                // localStorage.setItem("teachers", JSON.stringify(teachers))
+                teachers.push(staffer)
+                localStorage.setItem("teachers", JSON.stringify(teachers))
                 document.getElementById("namesubmit").value = ""
                 // console.log(JSON.parse(localStorage.getItem("teachers")))
                 
+                var answer = document.getElementById("tellanswer")
                 if (rows == 7 && !correctanswer) {
                     gamedone = true
-                    var answer = document.getElementById("tellanswer")
                     answer.innerHTML = "The correct answer is " + target.getName() + "."
                 }
                 
@@ -164,15 +177,17 @@
                     reset.onclick = function () {
                         for (--rows; rows >= 1; rows--) {
                             table.deleteRow(rows)
-                            // console.log(rows)
+                            console.log(rows)
                         }
                         rows++
 
                         target = stafflist[Math.floor(Math.random() * stafflist.length)]
-                        // console.log(target)
+                        localStorage.setItem("target", JSON.stringify(target))
+                        console.log(target)
                         gamedone = false
                         correctanswer = false
-                        // teachers = []
+                        teachers = []
+                        localStorage.setItem("teachers", JSON.stringify(teachers))
 
                         reset.remove()
                         answer.innerHTML = ""
@@ -209,6 +224,96 @@
             // rows++
         }
 
+    }
+    
+    function fillrows() {
+        for (var i = 0; i < teachers.length; i++) {
+            
+            if (!(gamedone || correctanswer)) {
+                var staffer = stafflist[staffnames.indexOf(teachers[i]["name"].toLowerCase())]
+                var row = table.insertRow(i + 1)
+
+                var cell0 = row.insertCell(0)
+                cell0.style.textAlign = "left"
+                cell0.innerHTML = staffer.getName()
+                if (staffer.getName() === target.getName()) {
+                    cell0.style.backgroundColor = 'green'
+                    correctanswer = true
+                }
+                
+                var cell1 = row.insertCell(1)
+                cell1.style.textAlign = "center"
+                if (staffer.getName() > target.getName()) {
+                    cell1.innerHTML = "\u2191"
+                }
+                else if (staffer.getName() < target.getName()) {
+                    cell1.innerHTML = "\u2193"
+                }
+                else {
+                    cell1.innerHTML = "\u2713"
+                    cell1.style.backgroundColor = 'green'
+                }
+                
+                var cell2 = row.insertCell(2)
+                cell2.style.textAlign = "center"
+                cell2.innerHTML = staffer.getTitle()
+                if (staffer.getTitle() === target.getTitle()) {
+                    cell2.style.backgroundColor = 'green'
+                }
+                
+                var cell3 = row.insertCell(3)
+                cell3.style.textAlign = "center"
+                cell3.innerHTML = staffer.getDept()
+                if (staffer.getDept() === target.getDept()) {
+                    cell3.style.backgroundColor = 'green'
+                }
+                
+                var cell4 = row.insertCell(4)
+                cell4.style.textAlign = "center"
+                cell4.innerHTML = staffer.getFloor()
+                if (staffer.getFloor() == target.getFloor()) {
+                    cell4.style.backgroundColor = 'green'
+                }
+                // create new row object holding all info
+                // rows++
+                // teachers.push(staffer)
+                // localStorage.setItem("teachers", JSON.stringify(teachers))
+                // document.getElementById("namesubmit").value = ""
+                // console.log(JSON.parse(localStorage.getItem("teachers")))
+                
+                if (rows == 7 && !correctanswer) {
+                    gamedone = true
+                    var answer = document.getElementById("tellanswer")
+                    answer.innerHTML = "The correct answer is " + target.getName() + "."
+                }
+                
+                if (gamedone || correctanswer) {
+                    // reset table as well
+
+                    var reset = document.createElement("button")
+                    reset.innerHTML = "Play Again"
+                    reset.type = "submit"
+                    document.body.appendChild(reset)
+                    reset.onclick = function () {
+                        for (--rows; rows >= 1; rows--) {
+                            table.deleteRow(rows)
+                            console.log(rows)
+                        }
+                        rows++
+
+                        target = stafflist[Math.floor(Math.random() * stafflist.length)]
+                        localStorage.setItem("target", JSON.stringify(target))
+                        console.log(target)
+                        gamedone = false
+                        correctanswer = false
+                        teachers = []
+
+                        reset.remove()
+                        answer.innerHTML = ""
+                    }
+                }
+            }
+        }
     }
 
     // var userinput = new FormData(form[0])
