@@ -78,6 +78,7 @@
     console.log("correctanswer: " + correctanswer)
 
     // console.log(staffnames[50])
+    var reset = document.createElement("button")
 
     var teachers = JSON.parse(localStorage.getItem("teachers")) // list of teachers inputted
     if (teachers === null) {
@@ -86,6 +87,7 @@
     console.log(teachers)
     fillrows()
     var rows = teachers.length + 1
+    checkcompletion()
 
     var b = document.getElementById("submit")
     b.addEventListener("click", getuserinput)
@@ -167,42 +169,7 @@
                 document.getElementById("namesubmit").value = ""
                 // console.log(JSON.parse(localStorage.getItem("teachers")))
                 
-                var answer = document.getElementById("tellanswer")
-                if (rows == 7 && !correctanswer) {
-                    gamedone = true
-                    localStorage.setItem("gamedone", "true")
-                    answer.innerHTML = "The correct answer is " + target.getName() + "."
-                }
-                
-                if (gamedone || correctanswer) {
-                    // reset table as well
-
-                    var reset = document.createElement("button")
-                    reset.innerHTML = "Play Again"
-                    reset.type = "submit"
-                    document.body.appendChild(reset)
-                    reset.onclick = function () {
-                        for (--rows; rows >= 1; rows--) {
-                            table.deleteRow(rows)
-                            console.log(rows)
-                        }
-                        rows++
-
-                        target = stafflist[Math.floor(Math.random() * stafflist.length)]
-                        localStorage.setItem("target", JSON.stringify(target))
-                        console.log(target)
-                        gamedone = false
-                        localStorage.setItem("gamedone", "false")
-                        correctanswer = false
-                        localStorage.setItem("correctanswer", "false")
-                        teachers = []
-                        localStorage.setItem("teachers", JSON.stringify(teachers))
-                        console.log(teachers)
-
-                        reset.remove()
-                        answer.innerHTML = ""
-                    }
-                }
+                checkcompletion()
             }
 
             // var staffer = stafflist[staffnames.indexOf(userinput.toLowerCase())]
@@ -291,42 +258,80 @@
             // document.getElementById("namesubmit").value = ""
             // console.log(JSON.parse(localStorage.getItem("teachers")))
             
-            var answer = document.getElementById("tellanswer")
-            if (rows == 7 && !correctanswer) {
-                gamedone = true
-                localStorage.setItem("gamedone", "true")
-                answer.innerHTML = "The correct answer is " + target.getName() + "."
-            }
+            // var answer = document.getElementById("tellanswer")
+            // if (rows == 7 && !correctanswer) {
+            //     gamedone = true
+            //     localStorage.setItem("gamedone", "true")
+            //     answer.innerHTML = "The correct answer is " + target.getName() + "."
+            // }
             
-            if (gamedone || correctanswer) {
-                // reset table as well
+            // if (gamedone || correctanswer) {
+            //     // reset table as well
 
-                var reset = document.createElement("button")
-                reset.innerHTML = "Play Again"
-                reset.type = "submit"
-                document.body.appendChild(reset)
-                reset.onclick = function () {
-                    for (--rows; rows >= 1; rows--) {
-                        table.deleteRow(rows)
-                        console.log(rows)
-                    }
-                    rows++
+            //     var reset = document.createElement("button")
+            //     reset.innerHTML = "Play Again"
+            //     reset.type = "submit"
+            //     document.body.appendChild(reset)
+            //     reset.onclick = function () {
+            //         for (--rows; rows >= 1; rows--) {
+            //             table.deleteRow(rows)
+            //             console.log(rows)
+            //         }
+            //         rows++
 
-                    target = stafflist[Math.floor(Math.random() * stafflist.length)]
-                    localStorage.setItem("target", JSON.stringify(target))
-                    console.log(target)
-                    gamedone = false
-                    localStorage.setItem("gamedone", "false")
-                    correctanswer = false
-                    localStorage.setItem("correctanswer", "false")
-                    teachers = []
-                    localStorage.setItem(teachers, JSON.stringify(teachers))
+            //         target = stafflist[Math.floor(Math.random() * stafflist.length)]
+            //         localStorage.setItem("target", JSON.stringify(target))
+            //         console.log(target)
+            //         gamedone = false
+            //         localStorage.setItem("gamedone", "false")
+            //         correctanswer = false
+            //         localStorage.setItem("correctanswer", "false")
+            //         teachers = []
+            //         localStorage.setItem(teachers, JSON.stringify(teachers))
 
-                    reset.remove()
-                    answer.innerHTML = ""
-                }
-            }
+            //         reset.remove()
+            //         answer.innerHTML = ""
+            //     }
+            // }
         }
+    }
+
+    function checkcompletion() {
+        var answer = document.getElementById("tellanswer")
+        if (rows == 7 && !correctanswer) {
+            gamedone = true
+            localStorage.setItem("gamedone", "true")
+            answer.innerHTML = "The correct answer is " + target.getName() + "."
+        }
+        
+        if (gamedone || correctanswer) {
+            // reset table as well
+
+            // var reset = document.createElement("button")
+            reset.innerHTML = "Play Again"
+            reset.type = "submit"
+            document.body.appendChild(reset)
+            reset.onclick = function () {
+                for (--rows; rows >= 1; rows--) {
+                    table.deleteRow(rows)
+                    console.log(rows)
+                }
+                rows++
+
+                target = stafflist[Math.floor(Math.random() * stafflist.length)]
+                localStorage.setItem("target", JSON.stringify(target))
+                console.log(target)
+                gamedone = false
+                localStorage.setItem("gamedone", "false")
+                correctanswer = false
+                localStorage.setItem("correctanswer", "false")
+                teachers = []
+                localStorage.setItem(teachers, JSON.stringify(teachers))
+
+                reset.remove()
+                answer.innerHTML = ""
+            }
+        }        
     }
 
     // var userinput = new FormData(form[0])
